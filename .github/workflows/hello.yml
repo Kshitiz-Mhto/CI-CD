@@ -18,7 +18,7 @@ jobs:
   say-hello:
     runs-on: ubuntu-latest
     container:
-      image: cimg/base:stable
+      image: ubuntu-latest
       env:
         MY_ENV_VAR: mf
     steps:
