@@ -7,8 +7,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -18,13 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Echo
-        run: echo "Hello-World, ${{ secrets.name }}"
+        env: 
+          gg: ${{ secrets.NAME }}
+        run: echo "Hello-World, $gg"
 
 
   release-on-push:
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: rymndhng/release-on-push-action@master
         with:
