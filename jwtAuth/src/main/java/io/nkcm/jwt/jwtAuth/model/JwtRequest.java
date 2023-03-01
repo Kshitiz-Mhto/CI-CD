@@ -2,8 +2,8 @@ package io.nkcm.jwt.jwtAuth.model;
 
 public class JwtRequest {
 
-    String username;
-    String password;
+    private String username;
+    private String password;
 
     public JwtRequest (){
         super();

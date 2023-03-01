@@ -8,7 +8,8 @@ public class HomeController {
 
     @RequestMapping("/home")
     public String welcome(){
-        return "THis is Homepage for JWT Authernication";
+        System.out.println("-----------------------------------------------------------");
+        return "This is Homepage for JWT Authernication";
     }
     
 }

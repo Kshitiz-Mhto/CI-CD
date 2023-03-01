@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -17,11 +17,10 @@ import java.util.function.Function;
  * Credit: https://github.com/koushikkothagal/spring-security-jwt/blob/master/src/main/java/io/javabrains/springsecurityjwt/util/JwtUtil.java
 */
 
-@Service
-public class jwtUtil {
+@Component
+public class JwtUtil {
     
-    private static final long serialVersionUID = -243480989866L;
-    public static final long JWT_Token_VaLIDITY = 8 * 55 + 77 / 8; 
+    public static final long JWT_Token_VaLIDITY = 5*60*60; 
     private String SECRET_KEY = "ibergx00";
 
     public String extractUsername(String token) {

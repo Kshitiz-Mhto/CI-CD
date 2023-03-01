@@ -2,7 +2,7 @@ package io.nkcm.jwt.jwtAuth.model;
 
 public class JwtResponse {
     
-    String token;
+    private String token;
 
     public JwtResponse(){
         super();
