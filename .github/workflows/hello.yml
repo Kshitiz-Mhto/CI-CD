@@ -18,7 +18,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Echo
-        uses: echo "Hello-World, ${{ secrets.name }}"
+        run: echo "Hello-World, ${{ secrets.name }}"
 
 
   release-on-push:
