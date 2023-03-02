@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.nkcm.jwt</groupId>
-	<artifactId>jwtAuth</artifactId>
+	<artifactId>JwtAuth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>jwtAuthentication</name>
 	<description>Demo project for Spring Boot with JWT Auth</description>
@@ -52,6 +52,7 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+		
 	</dependencies>
 
 	<build>

@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-    @RequestMapping("/home")
+    @RequestMapping(value = {"/home","/"})
     public String welcome(){
-        System.out.println("-----------------------------------------------------------");
-        return "This is Homepage for JWT Authernication";
+        return "This is sample application for JWT Authernication";
     }
     
 }

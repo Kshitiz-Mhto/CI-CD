@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,22 +28,21 @@ public class JwtController {
     private CustomUserDetailService customUserDetailService;
 
 
-    @RequestMapping(value="/publicToken", method=RequestMethod.POST)
+    @PostMapping("/publicToken")
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception{
         System.out.println(jwtRequest);
         try{
             this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
         }catch(Exception e){
             e.printStackTrace();
-            throw new Exception("Bad Credentials");
+            throw new Exception("Incorrect Credentials");
         }
 
-        // only execute if user is authenticated using above code
+        // only execute after user is authenticated using above code
         UserDetails userDetials = this.customUserDetailService.loadUserByUsername(jwtRequest.getUsername());
         String token = this.jwtUtil.generateToken(userDetials);
         System.out.println("token: "+ token);
 
-        // token must be in json format and return it
         return ResponseEntity.ok(new JwtResponse(token));
     }
     
