@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import io.nkcm.jwt.jwtAuth.Exception.JwtAuthEntryPoint;
 import io.nkcm.jwt.jwtAuth.services.CustomUserDetailService;
 
 @Configuration
@@ -25,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtValidatingFilter jwtFilter;
+
+    @Autowired
+    private JwtAuthEntryPoint jwtAuthEntryPoint;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -40,7 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/publicToken").permitAll()
             .anyRequest().authenticated()
             .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint);
       
         //intercept the request evertime a request is made to the server
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
