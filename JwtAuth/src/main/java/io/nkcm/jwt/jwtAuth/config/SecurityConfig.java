@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import io.nkcm.jwt.jwtAuth.services.CustomUserDetailService;
 
@@ -22,6 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailService customUserDetailService;
 
+    @Autowired
+    private JwtValidatingFilter jwtFilter;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // what kind of Auth you want to implement
@@ -31,16 +35,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // filtering the urls for authorization
-        http
-            .csrf()
-            .disable()
-            .cors()
-            .disable()
+        http.cors().and().csrf().disable()
             .authorizeRequests()
-            .antMatchers("/publicToken","/home","/").permitAll()
+            .antMatchers("/publicToken").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+      
+        //intercept the request evertime a request is made to the server
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         
     }
 

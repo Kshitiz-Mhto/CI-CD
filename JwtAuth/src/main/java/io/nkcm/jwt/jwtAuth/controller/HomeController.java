@@ -8,7 +8,7 @@ public class HomeController {
 
     @RequestMapping(value = {"/home","/"})
     public String welcome(){
-        return "This is sample application for JWT Authernication";
+        return "This is sample application for JWT Authernication\n\tSuccessfully Authenticated";
     }
     
 }

@@ -41,7 +41,7 @@ public class JwtController {
         // only execute after user is authenticated using above code
         UserDetails userDetials = this.customUserDetailService.loadUserByUsername(jwtRequest.getUsername());
         String token = this.jwtUtil.generateToken(userDetials);
-        System.out.println("token: "+ token);
+        System.out.println("JWT: "+ token);
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
