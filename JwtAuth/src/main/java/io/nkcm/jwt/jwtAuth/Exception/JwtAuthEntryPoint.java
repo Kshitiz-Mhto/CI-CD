@@ -16,10 +16,14 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
-        response.sendError(401, "Unauthorized User");
         
+        if (authException instanceof BadCredentialsException || authException instanceof UsernameNotFoundException) {
+            response.sendError(HttpStatus.UNAUTHORIZED.value(), "Unauthorized User");
+        } else if (authException instanceof LockedException) {
+            response.sendError(HttpStatus.LOCKED.value(),"Account locked");
+        } else {
+            response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Internal server error");
+        }
+
     }
-
-
-    
 }
